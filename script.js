@@ -222,6 +222,50 @@ function sanitizeSafeFilename(nameStr) {
   return cleaned.slice(0, 64) || "module.js";
 }
 
+// DevTools & Right-Click Anti-Inspection Protection
+window.addEventListener("contextmenu", (e) => {
+  if (e.target.tagName !== "TEXTAREA" && e.target.tagName !== "INPUT") {
+    e.preventDefault();
+    showToast("Inspection & Right-Click are disabled for security.");
+  }
+});
+
+window.addEventListener("keydown", (e) => {
+  const isInspectKey =
+    e.key === "F12" ||
+    ((e.ctrlKey || e.metaKey) && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+    ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "u");
+  if (isInspectKey) {
+    e.preventDefault();
+    e.stopPropagation();
+    showToast("DevTools shortcuts blocked for application security.");
+  }
+}, true);
+
+// Pre-Emptive Project Memory Guard (Crash Prevention)
+function getProjectMemoryMetrics(proj) {
+  if (!proj) return { totalMessages: 0, totalChars: 0, isAtLimit: false };
+  let totalMessages = 0;
+  let totalChars = 0;
+  (proj.sessions || []).forEach((s) => {
+    (s.messages || []).forEach((m) => {
+      totalMessages++;
+      totalChars += (m.text || "").length;
+    });
+  });
+  totalChars += (proj.memoryNotes || []).join(" ").length;
+  // Adaptive limit: 45 messages or 380,000 chars per project to keep device RAM ultra-light
+  const isAtLimit = totalMessages >= 45 || totalChars >= 380000;
+  return { totalMessages, totalChars, isAtLimit };
+}
+
+function showMemoryLimitPopup(proj) {
+  const modal = document.getElementById("memory-limit-modal");
+  const nameEl = document.getElementById("mem-limit-proj-name");
+  if (nameEl) nameEl.textContent = proj ? proj.name : "Current Project";
+  if (modal) modal.classList.remove("hidden");
+}
+
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -933,6 +977,13 @@ Instructions for V Code AI (V.Code Autonomous Studio Protocol):
 }
 
 function handleIncomingPrompt(promptText) {
+  const currentProj = getActiveProject();
+  const memCheck = getProjectMemoryMetrics(currentProj);
+  if (memCheck.isAtLimit) {
+    showMemoryLimitPopup(currentProj);
+    return;
+  }
+
   let finalPrompt = promptText;
   if (attachedFiles.length > 0) {
     const fileContext = attachedFiles
@@ -3306,6 +3357,27 @@ document.getElementById("ws-effort-pill").addEventListener("click", () => {
   effortIdx = (effortIdx + 1) % efforts.length;
   document.getElementById("ws-effort-text").textContent = efforts[effortIdx];
 });
+
+// Project Memory Safe Limit Modal Listeners
+const memoryLimitModal = document.getElementById("memory-limit-modal");
+document.getElementById("close-memory-limit-btn")?.addEventListener("click", () => {
+  memoryLimitModal?.classList.add("hidden");
+});
+document.getElementById("mem-limit-view-btn")?.addEventListener("click", () => {
+  memoryLimitModal?.classList.add("hidden");
+  setRightCodePaneOpen(true);
+});
+document.getElementById("mem-limit-new-proj-btn")?.addEventListener("click", () => {
+  memoryLimitModal?.classList.add("hidden");
+  openSaveModal("project");
+});
+
+// PWA Service Worker Registration
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
 
 renderAllUI();
 renderAboutGuideGrid();
