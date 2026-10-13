@@ -2768,7 +2768,7 @@ body {
   color: var(--text-secondary);
 }
 
-.ag-cmd-code {
+.vc-cmd-code, .ag-cmd-code {
   font-family: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
   font-size: 11.5px;
   color: var(--text);
@@ -2779,7 +2779,7 @@ body {
 }
 
 /* Colored Language Badges (JS, HTML, CSS, PY, TS, JSON) */
-.ag-ext-badge {
+.vc-ext-badge, .ag-ext-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2793,33 +2793,33 @@ body {
   flex-shrink: 0;
 }
 
-.ag-ext-badge.js {
+.vc-ext-badge, .ag-ext-badge.js {
   background: #facc15;
   color: #18181b;
 }
 
-.ag-ext-badge.html {
+.vc-ext-badge, .ag-ext-badge.html {
   background: #fb923c;
   color: #18181b;
 }
 
-.ag-ext-badge.css {
+.vc-ext-badge, .ag-ext-badge.css {
   background: #38bdf8;
   color: #0f172a;
 }
 
-.ag-ext-badge.py {
+.vc-ext-badge, .ag-ext-badge.py {
   background: #4ade80;
   color: #052e16;
 }
 
-.ag-ext-badge.ts {
+.vc-ext-badge, .ag-ext-badge.ts {
   background: #60a5fa;
   color: #0f172a;
 }
 
-.ag-ext-badge.json,
-.ag-ext-badge.txt {
+.vc-ext-badge, .ag-ext-badge.json,
+.vc-ext-badge, .ag-ext-badge.txt {
   background: #a78bfa;
   color: #1e1b4b;
 }
@@ -2861,7 +2861,7 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.ag-narrative-text {
+.vc-narrative-text, .ag-narrative-text {
   color: var(--text);
   font-size: var(--chat-font-size);
   line-height: 1.66;
@@ -2869,7 +2869,7 @@ body {
   letter-spacing: -0.006em;
 }
 
-.ag-inline-file-link {
+.vc-inline-file-link, .ag-inline-file-link {
   color: var(--accent);
   font-weight: 600;
   text-decoration: underline;
@@ -2878,10 +2878,10 @@ body {
 }
 
 /* =========================================================
-   REDESIGNED INLINE CODE BLOCK & SYNTAX HIGHLIGHTING (.ag-code-card)
+   REDESIGNED INLINE CODE BLOCK & SYNTAX HIGHLIGHTING (.vc-code-card, .ag-code-card)
    Sleek Native IDE Editor Surface inside Chat
    ========================================================= */
-.ag-code-card {
+.vc-code-card, .ag-code-card {
   margin: 12px 0;
   border: 1px solid var(--code-border);
   border-radius: 10px;
@@ -2891,15 +2891,15 @@ body {
   transition: border-color 0.15s ease, background 0.18s ease;
 }
 
-.ag-code-card:hover {
+.vc-code-card, .ag-code-card:hover {
   border-color: var(--border-strong);
 }
 
-.ag-code-card.collapsed .ag-code-table {
+.vc-code-card, .ag-code-card.collapsed .vc-code-table, .ag-code-table {
   display: none;
 }
 
-.ag-code-header {
+.vc-code-header, .ag-code-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2909,18 +2909,18 @@ body {
   font-size: 12px;
 }
 
-.ag-code-card.collapsed .ag-code-header {
+.vc-code-card, .ag-code-card.collapsed .vc-code-header, .ag-code-header {
   border-bottom: none;
 }
 
-.ag-code-file-info {
+.vc-code-file-info, .ag-code-file-info {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
 }
 
-.ag-code-filename {
+.vc-code-filename, .ag-code-filename {
   font-family: "JetBrains Mono", "Consolas", monospace;
   font-size: 12px;
   font-weight: 600;
@@ -2928,12 +2928,12 @@ body {
   cursor: pointer;
 }
 
-.ag-code-filename:hover {
+.vc-code-filename, .ag-code-filename:hover {
   color: var(--accent);
   text-decoration: underline;
 }
 
-.ag-code-lines-pill {
+.vc-code-lines-pill, .vc-code-line, .ag-code-lines-pill {
   font-size: 10.5px;
   color: var(--text-muted);
   font-family: "JetBrains Mono", "Consolas", monospace;
@@ -2942,7 +2942,7 @@ body {
   background: var(--ws-hover-bg);
 }
 
-.ag-code-actions {
+.vc-code-actions, .ag-code-actions {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -2969,7 +2969,7 @@ body {
   color: var(--text);
 }
 
-.ag-code-table {
+.vc-code-table, .ag-code-table {
   width: 100%;
   overflow-x: auto;
   max-height: 310px;
@@ -2981,17 +2981,17 @@ body {
   background: var(--code-bg);
 }
 
-.ag-code-line {
+.vc-code-line, .ag-code-line {
   display: flex;
   padding: 0 14px 0 0;
   min-width: max-content;
 }
 
-.ag-code-line:hover {
+.vc-code-line, .ag-code-line:hover {
   background: var(--code-line-hover);
 }
 
-.ag-line-num {
+.vc-line-num, .ag-line-num {
   width: 42px;
   flex-shrink: 0;
   user-select: none;
@@ -3004,7 +3004,7 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.ag-line-text {
+.vc-line-text, .ag-line-text {
   white-space: pre;
   color: var(--code-text);
 }
@@ -3037,7 +3037,7 @@ body {
 }
 
 /* "N files changed +total -del" Summary Card at Bottom of Chat Turn */
-.ag-files-changed-card {
+.vc-files-changed-card, .ag-files-changed-card {
   margin-top: 14px;
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
@@ -3046,7 +3046,7 @@ body {
   transition: background 0.18s ease, border-color 0.18s ease;
 }
 
-.ag-fc-header {
+.vc-fc-header, .ag-fc-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3055,7 +3055,7 @@ body {
   font-size: 12.5px;
 }
 
-.ag-fc-title {
+.vc-fc-title, .ag-fc-title {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -3063,13 +3063,13 @@ body {
   color: var(--text);
 }
 
-.ag-fc-actions {
+.vc-fc-actions, .ag-fc-actions {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.ag-fc-link-btn {
+.vc-fc-link-btn, .ag-fc-link-btn {
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -3081,17 +3081,17 @@ body {
   transition: color 0.12s ease, background 0.12s ease;
 }
 
-.ag-fc-link-btn:hover {
+.vc-fc-link-btn, .ag-fc-link-btn:hover {
   color: var(--text);
   background: var(--ws-hover-bg);
 }
 
-.ag-fc-list {
+.vc-fc-list, .ag-fc-list {
   display: flex;
   flex-direction: column;
 }
 
-.ag-fc-row {
+.vc-fc-row, .ag-fc-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3101,15 +3101,15 @@ body {
   transition: background 0.12s ease;
 }
 
-.ag-fc-row:last-child {
+.vc-fc-row, .ag-fc-row:last-child {
   border-bottom: none;
 }
 
-.ag-fc-row:hover {
+.vc-fc-row, .ag-fc-row:hover {
   background: var(--ws-hover-bg);
 }
 
-.ag-fc-file-left {
+.vc-fc-file-left, .ag-fc-file-left {
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -3119,7 +3119,7 @@ body {
   color: var(--text);
 }
 
-.ag-fc-file-right {
+.vc-fc-file-right, .ag-fc-file-right {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -3148,7 +3148,7 @@ body {
   display: none;
 }
 
-.ag-written-code-section {
+.vc-written-code-section, .ag-written-code-section {
   background: var(--code-bg);
   display: flex;
   flex-direction: column;
@@ -3158,7 +3158,7 @@ body {
   overflow: hidden;
 }
 
-.ag-pane-header {
+.vc-pane-header, .ag-pane-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3170,7 +3170,7 @@ body {
   flex-shrink: 0;
 }
 
-.ag-pane-title-left {
+.vc-pane-title-left, .ag-pane-title-left {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -3179,11 +3179,11 @@ body {
   font-weight: 600;
 }
 
-.ag-pane-heading {
+.vc-pane-heading, .ag-pane-heading {
   letter-spacing: -0.01em;
 }
 
-.ag-pane-filecount {
+.vc-pane-filecount, .ag-pane-filecount {
   font-size: 10.5px;
   font-weight: 500;
   color: var(--text-secondary);
@@ -3194,18 +3194,18 @@ body {
   font-family: "JetBrains Mono", "Consolas", monospace;
 }
 
-.ag-pane-tabs-bar {
+.vc-pane-tabs-bar, .vc-pane-tabs, .ag-pane-tabs-bar {
   background: var(--code-header-bg);
   border-bottom: 1px solid var(--code-border);
   padding: 0 6px;
   flex-shrink: 0;
 }
 
-.ag-pane-tabs-bar.hidden {
+.vc-pane-tabs-bar, .vc-pane-tabs, .ag-pane-tabs-bar.hidden {
   display: none;
 }
 
-.ag-pane-tabs {
+.vc-pane-tabs, .ag-pane-tabs {
   display: flex;
   align-items: stretch;
   gap: 2px;
@@ -3249,7 +3249,7 @@ body {
   flex-shrink: 0;
 }
 
-.ag-pane-btn {
+.vc-pane-btn, .ag-pane-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -3264,13 +3264,13 @@ body {
   transition: all 0.12s ease;
 }
 
-.ag-pane-btn:hover {
+.vc-pane-btn, .ag-pane-btn:hover {
   background: var(--ws-active-bg);
   border-color: var(--border-strong);
   color: var(--text);
 }
 
-.ag-pane-pathbar {
+.vc-pane-pathbar, .ag-pane-pathbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3283,7 +3283,7 @@ body {
   flex-shrink: 0;
 }
 
-.ag-path-left {
+.vc-path-left, .ag-path-left {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -3291,12 +3291,12 @@ body {
   font-weight: 500;
 }
 
-.ag-path-diff {
+.vc-path-diff, .ag-path-diff {
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.ag-pane-editor {
+.vc-pane-editor, .ag-pane-editor {
   flex: 1;
   min-height: 0;
   overflow: auto;
@@ -3308,12 +3308,12 @@ body {
   color: var(--code-text);
 }
 
-.ag-pane-editor .ag-code-table {
+.vc-pane-editor, .ag-pane-editor .vc-code-table, .ag-code-table {
   max-height: none;
   padding: 2px 0;
 }
 
-.ag-empty-code-viewer {
+.vc-empty-code-viewer, .ag-empty-code-viewer {
   height: 100%;
   display: flex;
   align-items: center;
@@ -3511,11 +3511,11 @@ body {
 }
 
 /* =========================================================
-   9. MISTERDEV UPGRADES: SYNTAX GATES, VERSIONING, EDITABLE
+   9. V.CODE STUDIO UPGRADES: SYNTAX GATES, VERSIONING, EDITABLE
       CODE VIEWER & LIVE FREE-MODEL HARVESTER UI
    ========================================================= */
-.ag-version-badge,
-.ag-tab-ver {
+.vc-version-badge, .ag-version-badge,
+.vc-tab-ver, .ag-tab-ver {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3529,13 +3529,13 @@ body {
   color: var(--accent);
 }
 
-.ag-version-badge.hidden,
-.ag-gate-pill.hidden,
-.ag-pane-btn.hidden {
+.vc-version-badge, .ag-version-badge.hidden,
+.vc-gate-pill, .ag-gate-pill.hidden,
+.vc-pane-btn, .ag-pane-btn.hidden {
   display: none !important;
 }
 
-.ag-gate-pill {
+.vc-gate-pill, .ag-gate-pill {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -3547,13 +3547,13 @@ body {
   letter-spacing: 0.01em;
 }
 
-.ag-gate-pill.pass {
+.vc-gate-pill, .ag-gate-pill.pass {
   background: rgba(74, 222, 128, 0.12);
   border: 1px solid rgba(74, 222, 128, 0.3);
   color: var(--diff-plus);
 }
 
-.ag-gate-pill.fail {
+.vc-gate-pill, .ag-gate-pill.fail {
   background: rgba(248, 113, 113, 0.14);
   border: 1px solid rgba(248, 113, 113, 0.36);
   color: var(--diff-minus);
@@ -3571,14 +3571,14 @@ body {
   color: #ffffff;
 }
 
-.ag-pane-btn.active {
+.vc-pane-btn, .ag-pane-btn.active {
   background: var(--accent);
   border-color: var(--accent);
   color: #090d16;
   font-weight: 600;
 }
 
-.ag-code-editor-textarea {
+.vc-code-editor-textarea, .ag-code-editor-textarea {
   width: 100%;
   height: 100%;
   min-height: 360px;
@@ -3660,7 +3660,7 @@ body {
 }
 
 /* Markdown Heading & List Polish inside Chat */
-.ag-md-h2 {
+.vc-md-h2, .ag-md-h2 {
   display: block;
   font-size: 15px;
   font-weight: 700;
@@ -3668,7 +3668,7 @@ body {
   margin: 8px 0 2px 0;
 }
 
-.ag-md-h3 {
+.vc-md-h3, .ag-md-h3 {
   display: block;
   font-size: 13.5px;
   font-weight: 600;
@@ -3676,7 +3676,7 @@ body {
   margin: 6px 0 2px 0;
 }
 
-.ag-md-li {
+.vc-md-li, .ag-md-li {
   display: block;
   padding-left: 10px;
 }
@@ -3898,30 +3898,30 @@ body {
   }
 
   /* Written Code Cards in Chat on Mobile */
-  .ag-code-header {
+  .vc-code-header, .ag-code-header {
     flex-wrap: wrap;
     gap: 6px;
     padding: 7px 10px;
   }
 
-  .ag-code-file-info {
+  .vc-code-file-info, .ag-code-file-info {
     width: 100%;
     overflow-x: auto;
   }
 
-  .ag-code-actions {
+  .vc-code-actions, .ag-code-actions {
     width: 100%;
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: 4px;
   }
 
-  .ag-fc-header {
+  .vc-fc-header, .ag-fc-header {
     flex-wrap: wrap;
     gap: 6px;
   }
 
-  .ag-fc-row {
+  .vc-fc-row, .ag-fc-row {
     flex-wrap: wrap;
     gap: 6px;
     padding: 7px 10px;
@@ -3932,9 +3932,9 @@ body {
     width: 100vw;
   }
 
-  .ag-pane-header,
-  .ag-section-bar,
-  .ag-active-filebar {
+  .vc-pane-header, .ag-pane-header,
+  .vc-section-bar, .ag-section-bar,
+  .vc-active-filebar, .ag-active-filebar {
     padding-left: 10px;
     padding-right: 10px;
     flex-wrap: wrap;
