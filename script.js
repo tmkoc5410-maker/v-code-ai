@@ -1,6 +1,6 @@
 // =========================================================
 // V CODE PERSISTENT STATE, STRICT API KEY + MODEL CONNECTOR
-// & ANTIGRAVITY-STYLE CHAT + CODE FILES ENGINE
+// & V.CODE STUDIO CHAT + CODE FILES ENGINE
 // (100% English | Zero Emojis | No Return to 1st Home Screen)
 // =========================================================
 const STORAGE_KEY = "vcode_persistent_memory_v6";
@@ -150,7 +150,7 @@ const DEFAULT_STATE = {
 // 0.5 CLIENT-SIDE SECURITY VAULT, SECRET REDACTION & SANITIZERS
 // =========================================================
 const VAULT_PREFIX = "vcvault:v1:";
-const VAULT_SALT = "VCode::Antigravity::ClientVault::2026";
+const VAULT_SALT = "VCode::StudioVault::Secure::2026";
 
 function encryptVaultSecret(plainText) {
   const raw = String(plainText || "").trim();
@@ -658,7 +658,7 @@ function getActiveModelName() {
   return found ? found.name : workingProv.models[0].name;
 }
 
-// Ordered list of all enabled providers & models for automatic failover (misterdev model_selector style)
+// Ordered list of all enabled providers & models for automatic failover (V.Code Intelligent Multi-Model Failover)
 function getAllWorkingProviderCandidates() {
   const candidates = [];
   const seen = new Set();
@@ -685,7 +685,7 @@ function getAllWorkingProviderCandidates() {
   return candidates;
 }
 
-// Anchored SEARCH / REPLACE Patching Engine (Ported from misterdev/llm/responses/apply.py)
+// Anchored SEARCH / REPLACE Patching Engine (V.Code High-Fidelity Search/Replace Engine)
 function applySearchReplaceToCode(originalCode, incomingBlock) {
   if (!incomingBlock || !incomingBlock.includes("<<<<<<< SEARCH")) {
     return incomingBlock;
@@ -735,7 +735,7 @@ function applySearchReplaceToCode(originalCode, incomingBlock) {
   return appliedAny ? patched : incomingBlock;
 }
 
-// Client-Side Correctness & Syntax Gate (Ported from misterdev/core/verification/gatekeeper)
+// Client-Side Correctness & Syntax Gate (V.Code Code Verification Gatekeeper)
 function verifyCodeGate(code, lang, filename = "") {
   const cleanCode = String(code || "").trim();
   if (!cleanCode) {
@@ -893,7 +893,7 @@ Session Remembered Facts:
 ${session.facts.map((f, i) => `${i + 1}. ${f}`).join("\n")}
 ${existingFilesSummary}
 ======================================================
-Instructions for V Code AI (misterdev Orchestrator Protocol):
+Instructions for V Code AI (V.Code Autonomous Studio Protocol):
 1. Always remember the above project, session context, and existing files.
 2. When building or updating code, separate code into clean modular files (e.g., index.html, styles.css, app.js, main.py) and ALWAYS place a filename comment on line 1 of every fenced code block:
    - HTML: <!-- filename: index.html -->
@@ -1088,11 +1088,11 @@ const wsCanvas = document.getElementById("ws-canvas");
 const wsMainSplit = document.getElementById("ws-main-split");
 const wsCodePane = document.getElementById("ws-code-pane");
 const wsMobileBackdrop = document.getElementById("ws-mobile-backdrop");
-const agWrittenCodeSection = document.getElementById("ag-written-code-section");
-const agPaneTabs = document.getElementById("ag-pane-tabs");
-const agActiveFilepath = document.getElementById("ag-active-filepath");
-const agActiveFilemeta = document.getElementById("ag-active-filemeta");
-const agPaneEditor = document.getElementById("ag-pane-editor");
+const vcWrittenCodeSection = document.getElementById("vc-written-code-section");
+const vcPaneTabs = document.getElementById("vc-pane-tabs");
+const vcActiveFilepath = document.getElementById("vc-active-filepath");
+const vcActiveFilemeta = document.getElementById("vc-active-filemeta");
+const vcPaneEditor = document.getElementById("vc-pane-editor");
 const wsCodeFilesCount = document.getElementById("ws-code-files-count");
 
 const wsTopbarLeftToggleBtn = document.getElementById("ws-topbar-left-toggle-btn");
@@ -1163,9 +1163,9 @@ wsLayoutLeftBtn?.addEventListener("click", toggleLeftSidebar);
 
 document.getElementById("ws-open-code-pane-btn")?.addEventListener("click", toggleRightCodePane);
 wsLayoutRightBtn?.addEventListener("click", toggleRightCodePane);
-document.getElementById("ag-close-pane-btn")?.addEventListener("click", () => setRightCodePaneOpen(false));
+document.getElementById("vc-close-pane-btn")?.addEventListener("click", () => setRightCodePaneOpen(false));
 
-document.getElementById("ag-git-commit-btn")?.addEventListener("click", () => {
+document.getElementById("vc-git-commit-btn")?.addEventListener("click", () => {
   const sess = getActiveSession();
   const count = workspaceCodeFiles.length;
   showToast(
@@ -1288,14 +1288,14 @@ function highlightCodeLine(rawLine) {
 function renderLineNumberedCodeHtml(codeString, showCursorOnLastLine = false) {
   const lines = codeString.replace(/\r\n/g, "\n").split("\n");
   return `
-    <div class="ag-code-table">
+    <div class="vc-code-table">
       ${lines
         .map((line, idx) => {
           const isLast = showCursorOnLastLine && idx === lines.length - 1;
           return `
-        <div class="ag-code-line">
-          <span class="ag-line-num">${idx + 1}</span>
-          <span class="ag-line-text">${highlightCodeLine(line)}${isLast ? '<span class="vc-typing-cursor"></span>' : ""}</span>
+        <div class="vc-code-line">
+          <span class="vc-line-num">${idx + 1}</span>
+          <span class="vc-line-text">${highlightCodeLine(line)}${isLast ? '<span class="vc-typing-cursor"></span>' : ""}</span>
         </div>
       `;
         })
@@ -1387,13 +1387,13 @@ function registerOrUpdateWorkspaceFile(lang, rawCode, isStreamingCode) {
 
 function renderCodePane() {
   const activeProj = getActiveProject();
-  const paneFileCountEl = document.getElementById("ag-pane-filecount");
-  const paneTabsBarEl = document.getElementById("ag-pane-tabs-bar");
-  const activeVersionEl = document.getElementById("ag-active-version");
-  const activeGateEl = document.getElementById("ag-active-gate");
-  const undoBtnEl = document.getElementById("ag-undo-file-btn");
-  const editLabelEl = document.getElementById("ag-edit-file-label");
-  const editBtnEl = document.getElementById("ag-edit-file-btn");
+  const paneFileCountEl = document.getElementById("vc-pane-filecount");
+  const paneTabsBarEl = document.getElementById("vc-pane-tabs-bar");
+  const activeVersionEl = document.getElementById("vc-active-version");
+  const activeGateEl = document.getElementById("vc-active-gate");
+  const undoBtnEl = document.getElementById("vc-undo-file-btn");
+  const editLabelEl = document.getElementById("vc-edit-file-label");
+  const editBtnEl = document.getElementById("vc-edit-file-btn");
 
   if (wsCodeFilesCount) {
     wsCodeFilesCount.textContent = String(workspaceCodeFiles.length);
@@ -1410,11 +1410,11 @@ function renderCodePane() {
     if (undoBtnEl) undoBtnEl.classList.add("hidden");
     if (editLabelEl) editLabelEl.textContent = "Edit";
     editBtnEl?.classList.remove("active");
-    agPaneTabs.innerHTML = "";
-    agActiveFilepath.textContent = `${activeProj.name} / No code files yet`;
-    agActiveFilemeta.textContent = "0 lines";
-    agPaneEditor.innerHTML = `
-      <div class="ag-empty-code-viewer">
+    vcPaneTabs.innerHTML = "";
+    vcActiveFilepath.textContent = `${activeProj.name} / No code files yet`;
+    vcActiveFilemeta.textContent = "0 lines";
+    vcPaneEditor.innerHTML = `
+      <div class="vc-empty-code-viewer">
         <span>No code files generated in this chat yet.</span>
       </div>
     `;
@@ -1428,13 +1428,13 @@ function renderCodePane() {
   }
   const activeFile = workspaceCodeFiles[activeCodeFileIdx];
 
-  agPaneTabs.innerHTML = workspaceCodeFiles
+  vcPaneTabs.innerHTML = workspaceCodeFiles
     .map((f, idx) => {
       const badge = getBadgeInfoForExt(f.filename || f.lang);
-      const verTag = f.versionNum > 1 ? `<span class="ag-tab-ver">v${f.versionNum}</span>` : "";
+      const verTag = f.versionNum > 1 ? `<span class="vc-tab-ver">v${f.versionNum}</span>` : "";
       return `
-        <button type="button" class="ag-pane-tab ${idx === activeCodeFileIdx ? "active" : ""}" data-tab-file="${idx}">
-          <span class="ag-ext-badge ${badge.cls}">${badge.label}</span>
+        <button type="button" class="vc-pane-tab ${idx === activeCodeFileIdx ? "active" : ""}" data-tab-file="${idx}">
+          <span class="vc-ext-badge ${badge.cls}">${badge.label}</span>
           <span>${escapeHtml(f.filename.split("/").pop())}</span>
           ${verTag}
         </button>
@@ -1442,7 +1442,7 @@ function renderCodePane() {
     })
     .join("");
 
-  agPaneTabs.querySelectorAll("[data-tab-file]").forEach((btn) => {
+  vcPaneTabs.querySelectorAll("[data-tab-file]").forEach((btn) => {
     btn.addEventListener("click", () => {
       isEditingCodePane = false;
       activeCodeFileIdx = Number(btn.dataset.tabFile);
@@ -1450,8 +1450,8 @@ function renderCodePane() {
     });
   });
 
-  agActiveFilepath.textContent = `${activeProj.name} / ${activeFile.filename}`;
-  agActiveFilemeta.textContent = `${activeFile.linesCount} lines`;
+  vcActiveFilepath.textContent = `${activeProj.name} / ${activeFile.filename}`;
+  vcActiveFilemeta.textContent = `${activeFile.linesCount} lines`;
 
   if (activeVersionEl) {
     activeVersionEl.textContent = `v${activeFile.versionNum || 1}`;
@@ -1477,17 +1477,17 @@ function renderCodePane() {
   editBtnEl?.classList.toggle("active", isEditingCodePane);
 
   if (isEditingCodePane) {
-    agPaneEditor.innerHTML = `
-      <textarea class="ag-code-editor-textarea" id="ag-live-code-textarea" spellcheck="false">${escapeHtml(activeFile.code)}</textarea>
+    vcPaneEditor.innerHTML = `
+      <textarea class="vc-code-editor-textarea" id="ag-live-code-textarea" spellcheck="false">${escapeHtml(activeFile.code)}</textarea>
     `;
     const ta = document.getElementById("ag-live-code-textarea");
     ta?.focus();
   } else {
-    agPaneEditor.innerHTML = renderLineNumberedCodeHtml(activeFile.code, Boolean(activeFile.isStreamingCode));
+    vcPaneEditor.innerHTML = renderLineNumberedCodeHtml(activeFile.code, Boolean(activeFile.isStreamingCode));
   }
 }
 
-document.getElementById("ag-edit-file-btn")?.addEventListener("click", () => {
+document.getElementById("vc-edit-file-btn")?.addEventListener("click", () => {
   const f = workspaceCodeFiles[activeCodeFileIdx];
   if (!f) return;
 
@@ -1522,7 +1522,7 @@ document.getElementById("ag-edit-file-btn")?.addEventListener("click", () => {
   renderCodePane();
 });
 
-document.getElementById("ag-undo-file-btn")?.addEventListener("click", () => {
+document.getElementById("vc-undo-file-btn")?.addEventListener("click", () => {
   const f = workspaceCodeFiles[activeCodeFileIdx];
   if (!f || !Array.isArray(f.versions) || f.versions.length <= 1) return;
 
@@ -1543,14 +1543,14 @@ document.getElementById("ag-undo-file-btn")?.addEventListener("click", () => {
   showToast(`Reverted ${f.filename} to v${f.versionNum}`);
 });
 
-document.getElementById("ag-copy-file-btn")?.addEventListener("click", () => {
+document.getElementById("vc-copy-file-btn")?.addEventListener("click", () => {
   const f = workspaceCodeFiles[activeCodeFileIdx];
   if (!f) return;
   navigator.clipboard.writeText(f.code);
   showToast(`Copied ${f.filename}`);
 });
 
-document.getElementById("ag-download-file-btn")?.addEventListener("click", () => {
+document.getElementById("vc-download-file-btn")?.addEventListener("click", () => {
   const f = workspaceCodeFiles[activeCodeFileIdx];
   if (!f) return;
   const blob = new Blob([f.code], { type: "text/plain;charset=utf-8" });
@@ -1561,7 +1561,7 @@ document.getElementById("ag-download-file-btn")?.addEventListener("click", () =>
   showToast(`Saved ${f.filename}`);
 });
 
-document.getElementById("ag-download-all-btn")?.addEventListener("click", () => {
+document.getElementById("vc-download-all-btn")?.addEventListener("click", () => {
   if (workspaceCodeFiles.length === 0) {
     showToast("No code files to save yet");
     return;
@@ -1790,7 +1790,7 @@ function renderAllUI() {
           return "";
         }
         const isStreamingMsg = Boolean(m.streaming);
-        const bodyHtml = formatAntigravityMessageHtml(m.text, isUser, msgIdx, isStreamingMsg);
+        const bodyHtml = formatVCodeStudioMessageHtml(m.text, isUser, msgIdx, isStreamingMsg);
         const streamingFooterHtml =
           isStreamingMsg && !m.temp
             ? `
@@ -1830,7 +1830,7 @@ function renderAllUI() {
       });
     });
 
-    // 1-Click Auto-Fix button when Syntax Gate detects an error (misterdev try-edit-verify loop)
+    // 1-Click Auto-Fix button when Syntax Gate detects an error (V.Code Self-Healing Auto-Fix)
     wsTaskFeed.querySelectorAll("[data-autofix-code]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const entry = codeBlocksRegistry[Number(btn.dataset.autofixCode)];
@@ -1843,7 +1843,7 @@ function renderAllUI() {
     // Toggle individual Written Code card visibility (Hide / Show)
     wsTaskFeed.querySelectorAll("[data-toggle-inline-code]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const card = btn.closest(".ag-code-card");
+        const card = btn.closest(".vc-code-card");
         if (!card) return;
         const isCollapsed = card.classList.toggle("collapsed");
         btn.textContent = isCollapsed ? "Show" : "Hide";
@@ -1855,7 +1855,7 @@ function renderAllUI() {
       btn.addEventListener("click", () => {
         const turnEl = btn.closest(".ws-feed-msg");
         if (!turnEl) return;
-        const cards = turnEl.querySelectorAll(".ag-code-card");
+        const cards = turnEl.querySelectorAll(".vc-code-card");
         const anyExpanded = Array.from(cards).some((c) => !c.classList.contains("collapsed"));
         cards.forEach((c) => {
           c.classList.toggle("collapsed", anyExpanded);
@@ -1878,23 +1878,23 @@ function renderAllUI() {
 
 function buildCodeCardHtml(entry, codeId, showCursor = false) {
   const gate = entry.gate || { ok: true, label: "Syntax OK", reason: "" };
-  const gatePillHtml = `<span class="ag-gate-pill ${gate.ok ? "pass" : "fail"}" title="${escapeHtml(gate.reason || gate.label)}">${escapeHtml(gate.label)}</span>`;
-  const verBadgeHtml = entry.versionNum > 1 ? `<span class="ag-version-badge">v${entry.versionNum}</span>` : "";
+  const gatePillHtml = `<span class="vc-gate-pill ${gate.ok ? "pass" : "fail"}" title="${escapeHtml(gate.reason || gate.label)}">${escapeHtml(gate.label)}</span>`;
+  const verBadgeHtml = entry.versionNum > 1 ? `<span class="vc-version-badge">v${entry.versionNum}</span>` : "";
   const autoFixBtnHtml = !gate.ok
     ? `<button type="button" class="vc-code-btn autofix" data-autofix-code="${codeId}" title="Send error to AI for automatic repair">Auto-Fix</button>`
     : "";
 
   return `
-    <div class="ag-code-card" id="ag-code-card-${codeId}">
-      <div class="ag-code-header">
-        <div class="ag-code-file-info">
-          <span class="ag-ext-badge ${entry.badge.cls}">${entry.badge.label}</span>
-          <span class="ag-code-filename" data-open-codefile="${entry.fileIdx}" title="Click to open in Right Code Viewer">${escapeHtml(entry.filename)}</span>
+    <div class="vc-code-card" id="vc-code-card-${codeId}">
+      <div class="vc-code-header">
+        <div class="vc-code-file-info">
+          <span class="vc-ext-badge ${entry.badge.cls}">${entry.badge.label}</span>
+          <span class="vc-code-filename" data-open-codefile="${entry.fileIdx}" title="Click to open in Right Code Viewer">${escapeHtml(entry.filename)}</span>
           ${verBadgeHtml}
-          <span class="ag-code-lines-pill">${entry.linesCount} lines</span>
+          <span class="vc-code-lines-pill">${entry.linesCount} lines</span>
           ${gatePillHtml}
         </div>
-        <div class="ag-code-actions">
+        <div class="vc-code-actions">
           ${autoFixBtnHtml}
           <button type="button" class="vc-code-btn" data-open-codefile="${entry.fileIdx}" title="Open in Right Code Viewer">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1916,9 +1916,9 @@ function buildCodeCardHtml(entry, codeId, showCursor = false) {
   `;
 }
 
-function formatAntigravityMessageHtml(rawText, isUser, msgIdx = 0, isStreaming = false) {
+function formatVCodeStudioMessageHtml(rawText, isUser, msgIdx = 0, isStreaming = false) {
   if (isUser) {
-    return `<div class="ag-narrative-text">${formatInlineText(rawText)}</div>`;
+    return `<div class="vc-narrative-text">${formatInlineText(rawText)}</div>`;
   }
 
   const narrativeParts = [];
@@ -1932,7 +1932,7 @@ function formatAntigravityMessageHtml(rawText, isUser, msgIdx = 0, isStreaming =
     if (match.index > lastIndex) {
       const chunk = rawText.slice(lastIndex, match.index).trim();
       if (chunk) {
-        narrativeParts.push(`<div class="ag-narrative-text">${formatInlineText(chunk)}</div>`);
+        narrativeParts.push(`<div class="vc-narrative-text">${formatInlineText(chunk)}</div>`);
       }
     }
     const lang = (match[1] || "js").toLowerCase();
@@ -1957,7 +1957,7 @@ function formatAntigravityMessageHtml(rawText, isUser, msgIdx = 0, isStreaming =
       hasUnclosedCodeBlock = true;
       const beforeCode = remaining.slice(0, unclosedMatch.index).trim();
       if (beforeCode) {
-        narrativeParts.push(`<div class="ag-narrative-text">${formatInlineText(beforeCode)}</div>`);
+        narrativeParts.push(`<div class="vc-narrative-text">${formatInlineText(beforeCode)}</div>`);
       }
       const lang = (unclosedMatch[1] || "js").toLowerCase();
       const code = unclosedMatch[2];
@@ -1975,10 +1975,10 @@ function formatAntigravityMessageHtml(rawText, isUser, msgIdx = 0, isStreaming =
       const tail = remaining.trim();
       if (tail) {
         narrativeParts.push(
-          `<div class="ag-narrative-text">${formatInlineText(tail)}${isStreaming ? '<span class="vc-typing-cursor"></span>' : ""}</div>`
+          `<div class="vc-narrative-text">${formatInlineText(tail)}${isStreaming ? '<span class="vc-typing-cursor"></span>' : ""}</div>`
         );
       } else if (isStreaming && narrativeParts.length === 0 && codeCardsHtml.length === 0) {
-        narrativeParts.push(`<div class="ag-narrative-text"><span class="vc-typing-cursor"></span></div>`);
+        narrativeParts.push(`<div class="vc-narrative-text"><span class="vc-typing-cursor"></span></div>`);
       }
     }
   } else if (isStreaming && !hasUnclosedCodeBlock) {
@@ -1993,29 +1993,29 @@ function formatAntigravityMessageHtml(rawText, isUser, msgIdx = 0, isStreaming =
 
     // Clean Code Files List Card at Bottom of Turn
     const filesChangedCardHtml = `
-      <div class="ag-files-changed-card">
-        <div class="ag-fc-header">
-          <div class="ag-fc-title">
+      <div class="vc-files-changed-card">
+        <div class="vc-fc-header">
+          <div class="vc-fc-title">
             <span>Code Files (${turnFiles.length})</span>
           </div>
-          <div class="ag-fc-actions">
-            <button type="button" class="ag-fc-link-btn" data-toggle-turn-code="${msgIdx}">Hide Code</button>
-            <button type="button" class="ag-fc-link-btn" data-open-codefile="${turnFiles[0].fileIdx}">Open Code Viewer</button>
+          <div class="vc-fc-actions">
+            <button type="button" class="vc-fc-link-btn" data-toggle-turn-code="${msgIdx}">Hide Code</button>
+            <button type="button" class="vc-fc-link-btn" data-open-codefile="${turnFiles[0].fileIdx}">Open Code Viewer</button>
           </div>
         </div>
-        <div class="ag-fc-list">
+        <div class="vc-fc-list">
           ${turnFiles
             .map(
               (f) => `
-            <div class="ag-fc-row" data-open-codefile="${f.fileIdx}" title="Click to view ${escapeHtml(f.filename)} in Right Code Viewer">
-              <div class="ag-fc-file-left">
-                <span class="ag-ext-badge ${f.badge.cls}">${f.badge.label}</span>
+            <div class="vc-fc-row" data-open-codefile="${f.fileIdx}" title="Click to view ${escapeHtml(f.filename)} in Right Code Viewer">
+              <div class="vc-fc-file-left">
+                <span class="vc-ext-badge ${f.badge.cls}">${f.badge.label}</span>
                 <span>${escapeHtml(f.filename)}</span>
-                ${f.versionNum > 1 ? `<span class="ag-version-badge">v${f.versionNum}</span>` : ""}
+                ${f.versionNum > 1 ? `<span class="vc-version-badge">v${f.versionNum}</span>` : ""}
               </div>
-              <div class="ag-fc-file-right">
-                <span class="ag-gate-pill ${f.gate?.ok !== false ? "pass" : "fail"}">${escapeHtml(f.gate?.label || "Syntax OK")}</span>
-                <span class="ag-code-lines-pill">${f.linesCount} lines</span>
+              <div class="vc-fc-file-right">
+                <span class="vc-gate-pill ${f.gate?.ok !== false ? "pass" : "fail"}">${escapeHtml(f.gate?.label || "Syntax OK")}</span>
+                <span class="vc-code-lines-pill">${f.linesCount} lines</span>
               </div>
             </div>
           `
@@ -2033,12 +2033,12 @@ function formatAntigravityMessageHtml(rawText, isUser, msgIdx = 0, isStreaming =
 
 function formatInlineText(str) {
   return escapeHtml(str)
-    .replace(/^###\s+(.+)$/gm, '<strong class="ag-md-h3">$1</strong>')
-    .replace(/^##\s+(.+)$/gm, '<strong class="ag-md-h2">$1</strong>')
-    .replace(/^\s*[-*]\s+(.+)$/gm, '<span class="ag-md-li">&bull; $1</span>')
+    .replace(/^###\s+(.+)$/gm, '<strong class="vc-md-h3">$1</strong>')
+    .replace(/^##\s+(.+)$/gm, '<strong class="vc-md-h2">$1</strong>')
+    .replace(/^\s*[-*]\s+(.+)$/gm, '<span class="vc-md-li">&bull; $1</span>')
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\b([a-zA-Z0-9_-]+\.(?:html|css|js|ts|py|json|md))\b/g, '<span class="ag-inline-file-link">$1</span>')
-    .replace(/`([^`]+)`/g, '<code class="ag-cmd-code">$1</code>')
+    .replace(/\b([a-zA-Z0-9_-]+\.(?:html|css|js|ts|py|json|md))\b/g, '<span class="vc-inline-file-link">$1</span>')
+    .replace(/`([^`]+)`/g, '<code class="vc-cmd-code">$1</code>')
     .replace(/\n/g, "<br>");
 }
 
@@ -2565,7 +2565,7 @@ document.getElementById("st-add-model-btn").addEventListener("click", () => {
   });
 });
 
-// Live Free-Model Harvester (Ported from misterdev/core/economics/free_models.py)
+// Live Free-Model Harvester (V.Code Live Model Harvester)
 let cachedOpenRouterFreeModels = null;
 
 async function harvestLiveFreeModelsForProvider(prov) {
@@ -3014,7 +3014,7 @@ function renderDynamicSettingsPane(tabKey) {
           <div><div class="st-ctrl-title">2. Add API Key &amp; Model Name</div><div class="st-ctrl-desc">In <strong>Model settings</strong>, paste your API key, enter your Model Name, and click <strong>Enable API Key</strong>.</div></div>
         </div>
         <div class="st-control-row">
-          <div><div class="st-ctrl-title">3. Antigravity-Style Chat &amp; Code Files</div><div class="st-ctrl-desc">Generated code blocks appear as line-numbered Code File cards in chat and open in the right-side Code Files Explorer.</div></div>
+          <div><div class="st-ctrl-title">3. V.Code Interactive Chat &amp; Modular Code Cards</div><div class="st-ctrl-desc">Generated code blocks appear as line-numbered Code File cards in chat and open in the right-side Code Files Explorer.</div></div>
         </div>
       `
     }
