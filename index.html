@@ -504,45 +504,45 @@
                  (Zero extra boxes — only Code Files list + Full-Height Code Viewer!)
                  ===================================================== -->
             <aside class="ws-code-pane hidden" id="ws-code-pane">
-              <div class="ag-written-code-section" id="ag-written-code-section">
+              <div class="vc-written-code-section" id="vc-written-code-section">
                 <!-- Top Files & Actions Header -->
-                <div class="ag-pane-header">
-                  <div class="ag-pane-title-left">
+                <div class="vc-pane-header">
+                  <div class="vc-pane-title-left">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
                     </svg>
-                    <span class="ag-pane-heading">Code Viewer</span>
-                    <span class="ag-pane-filecount" id="ag-pane-filecount">0 files</span>
+                    <span class="vc-pane-heading">Code Viewer</span>
+                    <span class="vc-pane-filecount" id="vc-pane-filecount">0 files</span>
                   </div>
                   <div class="ag-pane-actions">
-                    <button type="button" class="ag-pane-btn" id="ag-edit-file-btn" title="Edit active file code directly">
+                    <button type="button" class="vc-pane-btn" id="vc-edit-file-btn" title="Edit active file code directly">
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                       </svg>
-                      <span id="ag-edit-file-label">Edit</span>
+                      <span id="vc-edit-file-label">Edit</span>
                     </button>
-                    <button type="button" class="ag-pane-btn hidden" id="ag-undo-file-btn" title="Undo to previous file version">
+                    <button type="button" class="vc-pane-btn hidden" id="vc-undo-file-btn" title="Undo to previous file version">
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
                       </svg>
                       <span>Undo</span>
                     </button>
-                    <button type="button" class="ag-pane-btn" id="ag-copy-file-btn" title="Copy active file code">
+                    <button type="button" class="vc-pane-btn" id="vc-copy-file-btn" title="Copy active file code">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                       </svg>
                       <span>Copy</span>
                     </button>
-                    <button type="button" class="ag-pane-btn" id="ag-download-file-btn" title="Download active code file">
+                    <button type="button" class="vc-pane-btn" id="vc-download-file-btn" title="Download active code file">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
                       </svg>
                       <span>Save</span>
                     </button>
-                    <button type="button" class="ag-pane-btn" id="ag-download-all-btn" title="Download all generated code files">
+                    <button type="button" class="vc-pane-btn" id="vc-download-all-btn" title="Download all generated code files">
                       <span>Save All</span>
                     </button>
-                    <button type="button" class="ag-pane-btn hide-right-btn" id="ag-close-pane-btn" title="Hide Code Viewer (Ctrl+E)">
+                    <button type="button" class="vc-pane-btn hide-right-btn" id="vc-close-pane-btn" title="Hide Code Viewer (Ctrl+E)">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"/>
                       </svg>
@@ -551,22 +551,22 @@
                 </div>
 
                 <!-- File Tabs Bar: Shows all written code files in this session -->
-                <div class="ag-pane-tabs-bar" id="ag-pane-tabs-bar">
-                  <div class="ag-pane-tabs" id="ag-pane-tabs"></div>
+                <div class="vc-pane-tabs-bar" id="vc-pane-tabs-bar">
+                  <div class="vc-pane-tabs" id="vc-pane-tabs"></div>
                 </div>
 
                 <!-- Active File Path, Version & Syntax Gate Bar -->
-                <div class="ag-pane-pathbar" id="ag-pane-pathbar">
-                  <div class="ag-path-left">
-                    <span id="ag-active-filepath">No file selected</span>
-                    <span class="ag-version-badge hidden" id="ag-active-version">v1</span>
-                    <span class="ag-gate-pill pass hidden" id="ag-active-gate">Syntax OK</span>
+                <div class="vc-pane-pathbar" id="vc-pane-pathbar">
+                  <div class="vc-path-left">
+                    <span id="vc-active-filepath">No file selected</span>
+                    <span class="vc-version-badge hidden" id="vc-active-version">v1</span>
+                    <span class="vc-gate-pill pass hidden" id="vc-active-gate">Syntax OK</span>
                   </div>
-                  <span class="ag-path-diff" id="ag-active-filemeta">0 lines</span>
+                  <span class="vc-path-diff" id="vc-active-filemeta">0 lines</span>
                 </div>
 
                 <!-- 100% Full-Height Written Code Surface -->
-                <div class="ag-pane-editor" id="ag-pane-editor"></div>
+                <div class="vc-pane-editor" id="vc-pane-editor"></div>
               </div>
             </aside>
           </div>
