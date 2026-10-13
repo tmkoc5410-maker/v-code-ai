@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>V Code — AI Workspace &amp; Persistent Memory IDE</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#090d16" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -1111,6 +1113,37 @@
         </div>
         <div class="modal-footer" style="justify-content:center;">
           <button type="button" class="primary-action-btn" id="ok-coming-soon-btn">Got it</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================
+         MODAL: PROJECT MEMORY CAPACITY GUARD (Crash Prevention)
+         ======================================================= -->
+    <div class="modal-backdrop hidden" id="memory-limit-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="st-mini-v" style="background:#f59e0b;color:#090d16;">!</span>
+            <h3>Project Memory Safe Limit</h3>
+          </div>
+          <button class="modal-close" id="close-memory-limit-btn">&times;</button>
+        </div>
+        <div class="modal-body" style="text-align:center; padding: 24px 20px;">
+          <h4 style="font-size:17px; margin-bottom:8px; color:var(--text);" id="memory-limit-heading">
+            Project Capacity Reached
+          </h4>
+          <p class="setting-desc" id="memory-limit-desc" style="font-size:13px; max-width:390px; margin:0 auto 16px auto; line-height:1.6;">
+            To keep your device RAM and storage super-fast and prevent any app freeze or crash, this project has reached its safe active coding threshold. All your files and chats are safely preserved in storage!
+          </p>
+          <div style="background:var(--st-input-bg); border:1px solid var(--border-subtle); padding:10px 14px; border-radius:8px; font-size:12px; color:var(--text-secondary); text-align:left; margin-bottom:12px;">
+            <div><strong>Active Project:</strong> <span id="mem-limit-proj-name" style="color:var(--text);"></span></div>
+            <div style="margin-top:4px;"><strong>Recommendation:</strong> Start a New Project to continue coding cleanly without slowdowns. You can switch back to this project anytime.</div>
+          </div>
+        </div>
+        <div class="modal-footer" style="justify-content:center; gap:10px;">
+          <button type="button" class="secondary-btn" id="mem-limit-view-btn">View Saved Files</button>
+          <button type="button" class="primary-action-btn" id="mem-limit-new-proj-btn">+ Start New Project</button>
         </div>
       </div>
     </div>
