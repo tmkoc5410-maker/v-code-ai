@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="theme-color" content="#090d16" />
+  <title>V.Code Studio — Mobile Touch Workspace</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="mob-toast-container"></div>
+
+  <div class="mob-shell">
+
+    <!-- =======================================================
+         1. MOBILE TOP HEADER
+         ======================================================= -->
+    <header class="mob-header">
+      <div class="mob-header-left">
+        <div class="mob-logo-badge">V</div>
+        <button type="button" class="mob-project-btn" id="mob-top-proj-btn" title="Switch Project">
+          <span id="mob-header-proj-name">VCodeProject</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
+      <div class="mob-header-right">
+        <span class="mob-model-badge" id="mob-header-model-badge">Connect API</span>
+        <button type="button" class="mob-icon-btn" id="mob-theme-toggle-btn" title="Cycle Theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button type="button" class="mob-icon-btn" id="mob-desktop-mode-btn" title="Switch to Desktop Mode">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- =======================================================
+         2. VIEWPORT: 5 MOBILE VIEWS (Chat, Code, Projects, Models, Settings)
+         ======================================================= -->
+    <main class="mob-viewport">
+
+      <!-- =====================================================
+           PANEL 1: CHAT FEED & BOTTOM COMPOSER
+           ===================================================== -->
+      <section class="mob-tab-panel active" id="panel-chat">
+        <div class="mob-chat-feed" id="mob-chat-feed">
+          <div class="mob-chat-msg agent">
+            <div class="mob-agent-box">
+              <div class="mob-agent-header">
+                <span class="mob-agent-tag">
+                  <span class="mob-logo-badge" style="width:18px;height:18px;font-size:11px;">V</span>
+                  <span>V.Code AI Studio</span>
+                </span>
+                <span style="color:var(--m-text-muted);">Ready</span>
+              </div>
+              <div class="mob-agent-text">
+                Welcome to V.Code Mobile! Connect your API Key in the <strong>Models</strong> tab (or tap <strong>Load Free Models</strong>) to write and manage code files on your phone.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Thumb Composer -->
+        <div class="mob-composer-wrap">
+          <div class="mob-composer">
+            <div class="mob-input-row">
+              <textarea id="mob-prompt-input" class="mob-textarea" placeholder="Ask V.Code to build or fix code..."></textarea>
+              <button type="button" class="mob-send-btn" id="mob-send-btn" aria-label="Send">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+            <div class="mob-composer-pills">
+              <div class="mob-pill-left">
+                <button type="button" class="mob-pill-btn" id="mob-mode-pill">Ask before changes</button>
+                <button type="button" class="mob-pill-btn" id="mob-effort-pill">Max</button>
+              </div>
+              <label class="mob-pill-btn" style="cursor:pointer;">
+                <span>+ Attach</span>
+                <input type="file" id="mob-file-input" multiple style="display:none;" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PANEL 2: FULL-SCREEN CODE EXPLORER & EDITOR
+           ===================================================== -->
+      <section class="mob-tab-panel" id="panel-code">
+        <div class="mob-code-explorer">
+          <!-- File Tabs Bar -->
+          <div class="mob-code-tabs-bar" id="mob-code-tabs-bar">
+            <div class="mob-tab-chip active">No Files</div>
+          </div>
+
+          <!-- File Info Bar -->
+          <div class="mob-code-meta-bar">
+            <span id="mob-active-file-title" style="font-weight:600;color:var(--m-text);">No file open</span>
+            <span id="mob-active-file-ver" style="color:var(--m-accent);font-weight:600;">v1</span>
+            <span id="mob-active-file-lines">0 lines</span>
+          </div>
+
+          <!-- Quick Code Actions Bar -->
+          <div class="mob-code-actions-bar">
+            <button type="button" class="mob-tool-btn" id="mob-code-edit-btn">Edit</button>
+            <button type="button" class="mob-tool-btn" id="mob-code-undo-btn">Undo</button>
+            <button type="button" class="mob-tool-btn" id="mob-code-copy-btn">Copy</button>
+            <button type="button" class="mob-tool-btn" id="mob-code-save-btn">Save</button>
+            <button type="button" class="mob-tool-btn" id="mob-code-saveall-btn">Save All</button>
+          </div>
+
+          <!-- Code Surface / Editor Textarea -->
+          <div class="mob-code-surface" id="mob-code-surface">
+            <div style="padding:40px 10px;text-align:center;color:var(--m-text-muted);">
+              No code files generated in this session yet. Type a prompt in the Chat tab!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PANEL 3: PROJECTS & SAVED TASKS
+           ===================================================== -->
+      <section class="mob-tab-panel" id="panel-projects">
+        <div class="mob-scroll-page">
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Projects Management</span>
+              <button type="button" class="mob-tool-btn" id="mob-new-proj-btn" style="background:var(--m-accent);color:#090d16;font-weight:700;">+ New Project</button>
+            </div>
+            <div id="mob-projects-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Saved Tasks &amp; Chats</span>
+              <button type="button" class="mob-tool-btn" id="mob-new-task-btn">+ New Task</button>
+            </div>
+            <div id="mob-sessions-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PANEL 4: MODELS & PROVIDERS (Live Harvester)
+           ===================================================== -->
+      <section class="mob-tab-panel" id="panel-models">
+        <div class="mob-scroll-page">
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Select Provider</span>
+              <span id="mob-active-prov-tag" style="font-size:11px;color:var(--m-accent);font-weight:600;">Google Gemini</span>
+            </div>
+            <select id="mob-provider-select" class="mob-input-field"></select>
+          </div>
+
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">API Key Configuration</span>
+              <button type="button" class="mob-tool-btn" id="mob-get-key-link-btn" style="color:var(--m-accent);">Get Free Key &nearr;</button>
+            </div>
+            <input type="password" id="mob-api-key-input" class="mob-input-field" placeholder="Paste Provider API Key" />
+            <input type="text" id="mob-model-input" class="mob-input-field" placeholder="Model Name (e.g. gemini-2.5-flash)" />
+            <input type="text" id="mob-baseurl-input" class="mob-input-field" placeholder="Base URL (Optional)" />
+            <button type="button" class="mob-action-btn-primary" id="mob-save-provider-btn">Enable API Key &amp; Model</button>
+          </div>
+
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Live Free Models Harvester</span>
+              <button type="button" class="mob-tool-btn" id="mob-load-free-btn">Harvest Free Models</button>
+            </div>
+            <p style="font-size:12px;color:var(--m-text-secondary);">
+              Tap Harvest to discover 100% free active models directly from OpenRouter and Groq.
+            </p>
+            <div id="mob-free-chips-box" style="display:flex;flex-wrap:wrap;gap:6px;max-height:160px;overflow-y:auto;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PANEL 5: SETTINGS & CLIENT-SIDE VAULT
+           ===================================================== -->
+      <section class="mob-tab-panel" id="panel-settings">
+        <div class="mob-scroll-page">
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Appearance &amp; Theme</span>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button type="button" class="mob-action-btn-primary" data-mob-theme="dark" style="flex:1;">Dark</button>
+              <button type="button" class="mob-action-btn-primary" data-mob-theme="light" style="flex:1;background:var(--m-surface-elevated);color:var(--m-text);">Light</button>
+              <button type="button" class="mob-action-btn-primary" data-mob-theme="midnight" style="flex:1;background:var(--m-surface-elevated);color:var(--m-text);">Midnight</button>
+            </div>
+          </div>
+
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Vault Security &amp; Protection</span>
+            </div>
+            <p style="font-size:12px;color:var(--m-text-secondary);line-height:1.5;">
+              API Keys are securely encrypted with <strong>vcvault:v1:</strong> in client storage. F12 and Right-Click inspection are locked.
+            </p>
+            <button type="button" class="mob-action-btn-danger" id="mob-clear-keys-btn">
+              Clear All API Keys (1-Tap Wipe)
+            </button>
+          </div>
+
+          <div class="mob-card">
+            <div class="mob-card-head">
+              <span class="mob-card-title">Memory Capacity Protection</span>
+            </div>
+            <div style="font-size:12px;color:var(--m-text-secondary);display:flex;flex-direction:column;gap:4px;">
+              <div>Crash-Prevention Engine: <strong style="color:var(--m-diff-plus);">Active</strong></div>
+              <div>Per-Project Safe Threshold: <strong>45 Messages / 380KB</strong></div>
+              <div>Device Storage Engine: <strong>Local &amp; Offline Ready</strong></div>
+            </div>
+          </div>
+
+          <div class="mob-card">
+            <button type="button" class="mob-action-btn-primary" id="mob-go-desktop-btn" style="background:var(--m-surface-elevated);color:var(--m-text);">
+              Open Full Desktop IDE View
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- =======================================================
+         3. MOBILE THUMB-FRIENDLY BOTTOM NAVIGATION BAR
+         ======================================================= -->
+    <nav class="mob-bottom-nav">
+      <button type="button" class="mob-nav-item active" data-tab="chat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Chat</span>
+      </button>
+
+      <button type="button" class="mob-nav-item" data-tab="code">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>Code</span>
+      </button>
+
+      <button type="button" class="mob-nav-item" data-tab="projects">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span>Projects</span>
+      </button>
+
+      <button type="button" class="mob-nav-item" data-tab="models">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>Models</span>
+      </button>
+
+      <button type="button" class="mob-nav-item" data-tab="settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script src="mobile.js"></script>
+</body>
+</html>
