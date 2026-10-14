@@ -6,8 +6,12 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>V Code — AI Workspace &amp; Persistent Memory IDE</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#090d16" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    if (window.innerWidth <= 768 && !sessionStorage.getItem('vcode_prefer_desktop')) {
+      window.location.href = 'mobile.html';
+    }
+  </script>
 </head>
 <body>
 
@@ -127,8 +131,22 @@
                 </svg>
                 <span>Toggle Theme</span>
               </button>
+              <div class="v-dropdown-divider"></div>
+              <a href="mobile.html" class="v-drop-item" style="color:var(--accent);font-weight:600;text-decoration:none;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+                </svg>
+                <span>Switch to Mobile View</span>
+              </a>
             </div>
           </div>
+
+          <a href="mobile.html" class="home-about-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+            <span>Mobile App</span>
+          </a>
 
           <button type="button" class="home-about-btn" id="home-top-about-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
